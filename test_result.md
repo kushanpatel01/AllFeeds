@@ -210,20 +210,65 @@ backend:
         agent: "testing"
         comment: "✅ TESTED: YouTube connector working excellently. Successfully fetched 15 posts from YouTube RSS feeds. External YouTube RSS feed is accessible (https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw verified). Posts have proper structure with platform='YouTube' and all required fields."
 
-  - task: "Placeholder connector"
+  - task: "Instagram connector (RSSHub)"
     implemented: true
-    working: true
-    file: "/app/backend/connectors/placeholder.py"
+    working: "NA"
+    file: "/app/backend/connectors/instagram.py"
     stuck_count: 0
-    priority: "low"
-    needs_retesting: false
+    priority: "high"
+    needs_retesting: true
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Created placeholder for future platforms (Threads, Instagram, X/Twitter, Facebook)"
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: Placeholder connector working as expected. Returns 1 placeholder post indicating future platform integration. Proper structure maintained for consistency."
+        comment: "Implemented Instagram connector using public RSSHub API. Default user: natgeo. Fetches via https://rsshub.app/instagram/user/{username}"
+
+  - task: "Threads connector (RSSHub)"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/connectors/threads.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented Threads connector using public RSSHub API. Default user: zuck. Fetches via https://rsshub.app/threads/user/{username}"
+
+  - task: "Twitter connector (RSSHub)"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/connectors/twitter.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented Twitter/X connector using public RSSHub API. Default user: elonmusk. Fetches via https://rsshub.app/twitter/user/{username}"
+
+  - task: "Feed pagination"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added pagination support to /api/feed endpoint with page and limit parameters. Default limit=50, max=200"
+
+  - task: "Feed metadata endpoint"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Created /api/feed/metadata endpoint that returns total_posts, last_updated timestamp, cache TTL, and config update time"
 
 frontend:
   - task: "Feed display UI"
