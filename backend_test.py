@@ -290,7 +290,7 @@ class UnifiedFeedTester:
             
             if response.status_code == 200:
                 data = response.json()
-                required_fields = ["reddit_subreddits", "youtube_channels", "last_updated"]
+                required_fields = ["reddit_subreddits", "youtube_channels", "instagram_users", "threads_users", "twitter_users", "last_updated"]
                 missing_fields = [field for field in required_fields if field not in data]
                 
                 if not missing_fields:
