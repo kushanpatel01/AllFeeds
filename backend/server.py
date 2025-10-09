@@ -30,6 +30,9 @@ class FeedConfig(BaseModel):
     id: str = Field(default="default")
     reddit_subreddits: List[str] = ["python", "programming", "technology"]
     youtube_channels: List[str] = ["UC_x5XG1OV2P6uZZ5FSM9Ttw"]  # Google Developers
+    instagram_users: List[str] = ["natgeo"]  # Example: National Geographic
+    threads_users: List[str] = ["zuck"]  # Example: Mark Zuckerberg
+    twitter_users: List[str] = ["elonmusk"]  # Example: Elon Musk
     last_updated: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 @asynccontextmanager
