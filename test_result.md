@@ -272,15 +272,18 @@ backend:
 
   - task: "Feed metadata endpoint"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "low"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Created /api/feed/metadata endpoint that returns total_posts, last_updated timestamp, cache TTL, and config update time"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Feed metadata endpoint working perfectly. Returns all required fields: total_posts (93), last_updated (2025-10-09T12:40:43.275102+00:00), cache_ttl_minutes (10), config_updated (2025-10-09T12:40:08.559447+00:00). Metadata updates correctly after feed refresh operations."
 
 frontend:
   - task: "Feed display UI"
