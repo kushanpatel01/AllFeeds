@@ -35,6 +35,7 @@ function App() {
 
   useEffect(() => {
     fetchFeed();
+    fetchMetadata();
   }, []);
 
   const fetchFeed = async (refresh = false) => {
@@ -44,6 +45,7 @@ function App() {
       
       const params = new URLSearchParams();
       if (refresh) params.append('refresh', 'true');
+      params.append('limit', '100'); // Fetch more posts
       
       const response = await fetch(`${BACKEND_URL}/api/feed?${params}`);
       if (!response.ok) throw new Error('Failed to fetch feed');
@@ -56,6 +58,17 @@ function App() {
     } finally {
       setLoading(false);
       setIsRefreshing(false);
+    }
+  };
+
+  const fetchMetadata = async () => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/feed/metadata`);
+      if (!response.ok) throw new Error('Failed to fetch metadata');
+      const data = await response.json();
+      setMetadata(data);
+    } catch (err) {
+      console.error('Error fetching metadata:', err);
     }
   };
 
