@@ -368,12 +368,7 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "Instagram connector (RSSHub)"
-    - "Threads connector (RSSHub)"
-    - "Twitter connector (RSSHub)"
-    - "Feed pagination"
-    - "Feed metadata endpoint"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
