@@ -222,12 +222,22 @@ function App() {
           >
             {isRefreshing ? '🔄 Refreshing...' : '🔄 Refresh'}
           </button>
-          <button
-            onClick={handleExportRSS}
-            className="btn btn-primary"
-          >
-            📰 Export RSS
-          </button>
+          <div className="rss-button-group">
+            <button
+              onClick={handleDownloadRSS}
+              className="btn btn-primary"
+              title="Download RSS feed as XML file"
+            >
+              📥 Download RSS
+            </button>
+            <button
+              onClick={handleCopyRSSLink}
+              className="btn btn-primary-outline"
+              title="Copy RSS feed URL to clipboard"
+            >
+              🔗 Copy Link
+            </button>
+          </div>
         </div>
       </div>
 
