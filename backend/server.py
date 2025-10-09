@@ -160,20 +160,37 @@ async def fetch_and_cache_posts():
     try:
         reddit_posts = await reddit.fetch_posts(config.reddit_subreddits)
         all_posts.extend(reddit_posts)
+        print(f"✅ Fetched {len(reddit_posts)} posts from Reddit")
     except Exception as e:
-        print(f"Error fetching Reddit: {e}")
+        print(f"❌ Error fetching Reddit: {e}")
     
     try:
         youtube_posts = await youtube.fetch_posts(config.youtube_channels)
         all_posts.extend(youtube_posts)
+        print(f"✅ Fetched {len(youtube_posts)} posts from YouTube")
     except Exception as e:
-        print(f"Error fetching YouTube: {e}")
+        print(f"❌ Error fetching YouTube: {e}")
     
     try:
-        placeholder_posts = await placeholder.fetch_posts()
-        all_posts.extend(placeholder_posts)
+        instagram_posts = await instagram.fetch_posts(config.instagram_users)
+        all_posts.extend(instagram_posts)
+        print(f"✅ Fetched {len(instagram_posts)} posts from Instagram")
     except Exception as e:
-        print(f"Error fetching placeholder: {e}")
+        print(f"❌ Error fetching Instagram: {e}")
+    
+    try:
+        threads_posts = await threads.fetch_posts(config.threads_users)
+        all_posts.extend(threads_posts)
+        print(f"✅ Fetched {len(threads_posts)} posts from Threads")
+    except Exception as e:
+        print(f"❌ Error fetching Threads: {e}")
+    
+    try:
+        twitter_posts = await twitter.fetch_posts(config.twitter_users)
+        all_posts.extend(twitter_posts)
+        print(f"✅ Fetched {len(twitter_posts)} posts from Twitter")
+    except Exception as e:
+        print(f"❌ Error fetching Twitter: {e}")
     
     # Clear old cache
     await db.posts.delete_many({})
