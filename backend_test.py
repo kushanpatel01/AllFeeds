@@ -461,10 +461,13 @@ class UnifiedFeedTester:
         # Test in order of priority
         self.test_health_endpoint()
         self.test_external_feed_sources()
+        self.test_rsshub_connectors()
         self.test_feed_endpoint_basic()
         self.test_feed_platform_filter()
         self.test_feed_keyword_filter()
         self.test_feed_refresh_parameter()
+        self.test_feed_pagination()
+        self.test_feed_metadata_endpoint()
         self.test_rss_endpoint()
         self.test_rss_with_filters()
         self.test_refresh_endpoint()
