@@ -8,7 +8,7 @@ import os
 from contextlib import asynccontextmanager
 
 # Import connectors
-from connectors import reddit, youtube, placeholder
+from connectors import reddit, youtube, instagram, threads, twitter
 from rss_utils import generate_rss
 
 # MongoDB setup
