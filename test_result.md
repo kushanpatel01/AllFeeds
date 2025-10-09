@@ -354,13 +354,13 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Unified feed aggregation endpoint"
-    - "Reddit connector"
-    - "YouTube connector"
-    - "RSS export endpoint"
-    - "Feed refresh endpoint"
+    - "Instagram connector (RSSHub)"
+    - "Threads connector (RSSHub)"
+    - "Twitter connector (RSSHub)"
+    - "Feed pagination"
+    - "Feed metadata endpoint"
   stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
