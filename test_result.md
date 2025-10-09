@@ -319,7 +319,7 @@ frontend:
         agent: "main"
         comment: "Added refresh button that forces feed update from sources"
 
-  - task: "RSS export button"
+  - task: "RSS export enhancements"
     implemented: true
     working: "NA"
     file: "/app/frontend/src/App.js"
@@ -330,6 +330,21 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Added Export RSS button that opens RSS feed XML in new tab with current filters applied"
+      - working: "NA"
+        agent: "main"
+        comment: "Enhanced with Download RSS button (saves as XML file) and Copy Link button (copies RSS URL to clipboard). Added toast notification for copy confirmation"
+
+  - task: "Last updated timestamp"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added last updated timestamp display in header showing when feed was last cached/refreshed. Fetches from /api/feed/metadata endpoint"
 
 metadata:
   created_by: "main_agent"
