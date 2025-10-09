@@ -157,6 +157,13 @@ function App() {
 
   return (
     <div className="App">
+      {/* Copy Toast */}
+      {showCopyToast && (
+        <div className="copy-toast">
+          ✅ RSS link copied to clipboard!
+        </div>
+      )}
+
       {/* Header */}
       <header className="header">
         <div className="header-content">
@@ -165,6 +172,11 @@ function App() {
             My Unified Feed
           </h1>
           <p className="subtitle">Your personalized social media aggregator</p>
+          {metadata && metadata.last_updated && (
+            <p className="last-updated">
+              Last updated: {formatDate(metadata.last_updated)}
+            </p>
+          )}
         </div>
       </header>
 
