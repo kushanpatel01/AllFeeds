@@ -91,7 +91,7 @@ class UnifiedFeedTester:
     
     def test_feed_platform_filter(self):
         """Test GET /api/feed with platform filter"""
-        platforms_to_test = ["Reddit", "YouTube", "Placeholder"]
+        platforms_to_test = ["Reddit", "YouTube", "Instagram", "Threads", "Twitter", "Placeholder"]
         
         for platform in platforms_to_test:
             try:
