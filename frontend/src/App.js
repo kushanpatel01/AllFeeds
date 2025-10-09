@@ -77,6 +77,7 @@ function App() {
     try {
       await fetch(`${BACKEND_URL}/api/feed/refresh`, { method: 'POST' });
       await fetchFeed(true);
+      await fetchMetadata();
     } catch (err) {
       setError('Failed to refresh feed');
       setIsRefreshing(false);
@@ -89,6 +90,43 @@ function App() {
     if (searchKeyword) params.append('keyword', searchKeyword);
     
     window.open(`${BACKEND_URL}/api/feed/rss?${params}`, '_blank');
+  };
+
+  const handleCopyRSSLink = async () => {
+    const params = new URLSearchParams();
+    if (selectedPlatform !== 'all') params.append('platform', selectedPlatform);
+    if (searchKeyword) params.append('keyword', searchKeyword);
+    
+    const rssUrl = `${window.location.origin}/api/feed/rss?${params}`;
+    
+    try {
+      await navigator.clipboard.writeText(rssUrl);
+      setShowCopyToast(true);
+      setTimeout(() => setShowCopyToast(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  const handleDownloadRSS = async () => {
+    const params = new URLSearchParams();
+    if (selectedPlatform !== 'all') params.append('platform', selectedPlatform);
+    if (searchKeyword) params.append('keyword', searchKeyword);
+    
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/feed/rss?${params}`);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'my-unified-feed.xml';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Failed to download RSS:', err);
+    }
   };
 
   const filteredPosts = posts.filter(post => {
