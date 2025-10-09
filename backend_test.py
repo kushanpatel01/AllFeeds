@@ -312,6 +312,9 @@ class UnifiedFeedTester:
             "id": "default",
             "reddit_subreddits": ["python", "programming", "webdev"],
             "youtube_channels": ["UC_x5XG1OV2P6uZZ5FSM9Ttw"],
+            "instagram_users": ["natgeo", "nasa"],
+            "threads_users": ["zuck"],
+            "twitter_users": ["elonmusk", "openai"],
             "last_updated": datetime.now().isoformat()
         }
         
