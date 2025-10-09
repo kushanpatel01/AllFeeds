@@ -339,6 +339,99 @@ class UnifiedFeedTester:
         except Exception as e:
             self.log_test("Config Update", False, f"Request failed: {str(e)}")
     
+    def test_feed_metadata_endpoint(self):
+        """Test GET /api/feed/metadata"""
+        try:
+            response = self.session.get(f"{self.base_url}/feed/metadata", timeout=10)
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ["total_posts", "last_updated", "cache_ttl_minutes", "config_updated"]
+                missing_fields = [field for field in required_fields if field not in data]
+                
+                if not missing_fields:
+                    self.log_test("Feed Metadata", True, "Metadata endpoint working correctly", 
+                                {"metadata": data})
+                else:
+                    self.log_test("Feed Metadata", False, f"Metadata missing fields: {missing_fields}", 
+                                {"missing_fields": missing_fields, "metadata": data})
+            else:
+                self.log_test("Feed Metadata", False, f"HTTP {response.status_code}", 
+                            {"status_code": response.status_code, "response": response.text})
+                
+        except Exception as e:
+            self.log_test("Feed Metadata", False, f"Request failed: {str(e)}")
+    
+    def test_feed_pagination(self):
+        """Test GET /api/feed with pagination parameters"""
+        test_cases = [
+            {"page": 1, "limit": 20},
+            {"page": 2, "limit": 10},
+            {"page": 1, "limit": 5}
+        ]
+        
+        for i, params in enumerate(test_cases):
+            try:
+                param_str = "&".join([f"{k}={v}" for k, v in params.items()])
+                response = self.session.get(f"{self.base_url}/feed?{param_str}", timeout=30)
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if isinstance(data, list):
+                        expected_max = params["limit"]
+                        actual_count = len(data)
+                        
+                        if actual_count <= expected_max:
+                            self.log_test(f"Feed Pagination {i+1}", True, 
+                                        f"Pagination working, got {actual_count} posts (limit: {expected_max})", 
+                                        {"params": params, "post_count": actual_count})
+                        else:
+                            self.log_test(f"Feed Pagination {i+1}", False, 
+                                        f"Too many posts returned: {actual_count} > {expected_max}", 
+                                        {"params": params, "post_count": actual_count})
+                    else:
+                        self.log_test(f"Feed Pagination {i+1}", False, "Response is not a list", 
+                                    {"params": params, "response_type": type(data)})
+                else:
+                    self.log_test(f"Feed Pagination {i+1}", False, f"HTTP {response.status_code}", 
+                                {"params": params, "status_code": response.status_code})
+                    
+            except Exception as e:
+                self.log_test(f"Feed Pagination {i+1}", False, f"Request failed: {str(e)}", 
+                            {"params": params})
+    
+    def test_rsshub_connectors(self):
+        """Test RSSHub connector endpoints directly"""
+        rsshub_tests = [
+            ("Instagram RSSHub", "https://rsshub.app/instagram/user/natgeo"),
+            ("Threads RSSHub", "https://rsshub.app/threads/user/zuck"),
+            ("Twitter RSSHub", "https://rsshub.app/twitter/user/elonmusk")
+        ]
+        
+        for name, url in rsshub_tests:
+            try:
+                response = requests.get(url, timeout=20)
+                if response.status_code == 200:
+                    # Try to parse as RSS/XML
+                    try:
+                        root = ET.fromstring(response.text)
+                        if 'rss' in root.tag.lower() or 'feed' in root.tag.lower():
+                            self.log_test(f"RSSHub - {name}", True, "RSSHub endpoint accessible and returns valid feed", 
+                                        {"url": url, "status_code": response.status_code})
+                        else:
+                            self.log_test(f"RSSHub - {name}", False, f"Invalid feed format: {root.tag}", 
+                                        {"url": url, "root_tag": root.tag})
+                    except ET.ParseError:
+                        # Some RSSHub endpoints might return JSON or other formats
+                        self.log_test(f"RSSHub - {name}", True, "RSSHub endpoint accessible (non-XML response)", 
+                                    {"url": url, "status_code": response.status_code, "note": "May be rate limited or different format"})
+                else:
+                    self.log_test(f"RSSHub - {name}", False, f"HTTP {response.status_code}", 
+                                {"url": url, "status_code": response.status_code, "note": "RSSHub may be rate limited"})
+            except Exception as e:
+                self.log_test(f"RSSHub - {name}", False, f"Request failed: {str(e)}", 
+                            {"url": url, "note": "RSSHub public instance may be unavailable"})
+    
     def test_external_feed_sources(self):
         """Test if external RSS feeds (Reddit, YouTube) are accessible"""
         external_tests = [
