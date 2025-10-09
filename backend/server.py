@@ -63,9 +63,11 @@ async def health_check():
 async def get_feed(
     platform: Optional[str] = Query(None, description="Filter by platform (Reddit, YouTube, etc.)"),
     keyword: Optional[str] = Query(None, description="Search keyword in title"),
-    refresh: bool = Query(False, description="Force refresh from sources")
+    refresh: bool = Query(False, description="Force refresh from sources"),
+    page: int = Query(1, ge=1, description="Page number (starts from 1)"),
+    limit: int = Query(50, ge=1, le=200, description="Number of posts per page")
 ):
-    """Get unified feed from all sources"""
+    """Get unified feed from all sources with pagination"""
     
     # Check if we have cached posts (less than 10 minutes old)
     if not refresh:
@@ -91,7 +93,12 @@ async def get_feed(
     # Sort by date descending
     posts.sort(key=lambda x: x.date, reverse=True)
     
-    return posts
+    # Apply pagination
+    start_idx = (page - 1) * limit
+    end_idx = start_idx + limit
+    paginated_posts = posts[start_idx:end_idx]
+    
+    return paginated_posts
 
 @app.get("/api/feed/rss")
 async def get_rss_feed(
