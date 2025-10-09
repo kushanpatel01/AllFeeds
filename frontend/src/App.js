@@ -10,6 +10,8 @@ function App() {
   const [selectedPlatform, setSelectedPlatform] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [metadata, setMetadata] = useState(null);
+  const [showCopyToast, setShowCopyToast] = useState(false);
 
   const platformIcons = {
     'Reddit': '🔴',
