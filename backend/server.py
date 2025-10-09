@@ -100,6 +100,26 @@ async def get_feed(
     
     return paginated_posts
 
+@app.get("/api/feed/metadata")
+async def get_feed_metadata():
+    """Get feed metadata (count, last updated, etc.)"""
+    
+    # Get latest cached post to determine last update time
+    latest_post = await db.posts.find_one(sort=[("cached_at", -1)])
+    
+    # Count total posts in cache
+    total_posts = await db.posts.count_documents({})
+    
+    # Get config for last updated time
+    config = await get_config()
+    
+    return {
+        "total_posts": total_posts,
+        "last_updated": latest_post.get("cached_at") if latest_post else None,
+        "cache_ttl_minutes": 10,
+        "config_updated": config.last_updated
+    }
+
 @app.get("/api/feed/rss")
 async def get_rss_feed(
     platform: Optional[str] = Query(None, description="Filter by platform"),
@@ -107,8 +127,8 @@ async def get_rss_feed(
 ):
     """Export unified feed as RSS XML"""
     
-    # Get posts
-    posts_data = await get_feed(platform=platform, keyword=keyword, refresh=False)
+    # Get posts (without pagination for RSS)
+    posts_data = await get_feed(platform=platform, keyword=keyword, refresh=False, page=1, limit=200)
     posts_dict = [post.dict() for post in posts_data]
     
     return generate_rss(posts_dict)
